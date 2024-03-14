@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+
+:root {
+  --main-color: #265073;
+  --secondary-color: #265073;
+  --ternary-color: #265073;
+  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --background-color: #265073;
+  --background-secondary-color: #fff;
+  --border-color: #2D9596;
+  --border-secondary-color: #2D9596;
+  --plus-color: #2ecc71;
+  --minus-color: #c0392b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+ overflow-y: scroll;
+ scrollbar-width: thin;
+ animation: fade-in 1s forwards;
+}
+
+body {
+  background-image: url(Background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Arial";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  color: #265073;
+}
+
+.titleContainer {
+  background-image: url(TitleHome.png);
+  width: 500px;
+  height: 100%;
+}
+
+.menubar {
+  background-color: #2D9596;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  margin-top: 0px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.menuIncExp {
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: 75px;
+  position: absolute;
+  top: 0;
+  padding-top: 10px;
+  margin-top: 100px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
+  padding-top:15px;
+}
+
+.menuIncExp > div {
+  flex: 1;
+  text-align: center;
+}
+
+.menuBtn {
+  width: 65px;
+  height: 65px;
+  margin-top: 8px;
+  margin-right: 25px;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: ease-in-out 0.1s;
+  border: none;
+  background-repeat: no-repeat;
+  background: url(MenuBtn.png);
+  background-size: cover;
+}
+
+.menuBtn:hover {
+  width: 65px;
+  height: 65px;
+  background-repeat: no-repeat;
+  background: url(MenuBtnHover.png);
+  background-size: cover;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header img {
+  width: 4.5rem;
+  width: 4.5rem;
+  opacity: 0.5;
+}
+
+.balance-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.barrier {
+  width: 1px;
+  height: 100px;
+  position: relative;
+}
+
+.container {
+  position: relative;
+  padding-top: 0;
+  padding-bottom: 0px;
+  padding-left: 50px;
+  padding-right: 50px;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-top: 80px;
+  width: 750px;
+  background-image: url(ContainerBackground.png);
+  animation: expand .8s ease forwards;
+}
+
+.title {
+  position: absolute;
+  font-size: 24px; 
+  color: #fff;
+  margin-left: 155px;
+  margin-top: 35px;
+}
+
+h2 {
+  font-size: 1.17rem;
+}
+
+.balance {
+  text-align: center;
+  letter-spacing: 1px;
+  margin: 5px 0;
+  font-size: 20px;
+}
+
+h3 {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin: 40px 0 10px;
+}
+
+h2,
+h4 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.inc-exp-container {
+  background-color: var(--background-secondary-color);
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+.money {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin: 5px 0;
+}
+
+.money.plus {
+  color: var(--plus-color);
+}
+
+.money.minus {
+  color: var(--minus-color);
+}
+
+label {
+  display: inline-block;
+  margin: 10px 0;
+}
+
+input[type="text"],
+input[type="number"] {
+  border: 1px solid var(--border-secondary-color);
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+.btnDiv {
+ position: relative;
+ text-align: center;
+ padding-top: 10px;
+ padding-bottom: 10px;
+}
+
+.btn {
+  cursor: pointer;
+  background-color: var(--main-color);
+  box-shadow: var(--box-shadow);
+  color: var(--background-secondary-color);
+  border: 0;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  transition: 0.3s all ease;
+  border: 3px solid #fff;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: #265073;
+  cursor:pointer
+}
+
+.btn-delete {
+  cursor: pointer;
+  background-color: var(--main-color);
+  box-shadow: var(--box-shadow);
+  color: var(--background-secondary-color);
+  border: 0;
+  display: block;
+  padding: 7;
+  transition: 0.3s all ease;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-delete:hover {
+  background-color: #fff;
+  color: #265073;
+  cursor:pointer
+}
+
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+.list li {
+  background-color: var(--background-secondary-color);
+  box-shadow: var(--box-shadow);
+  color: var(--ternary-color);
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 10px;
+  margin: 10px 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.list li.plus {
+  border-left: 5px solid var(--plus-color);
+}
+
+.list li.minus {
+  border-left: 5px solid var(--minus-color);
+}
+
+.delete-btn {
+  cursor: pointer;
+  background-color: var(--minus-color);
+  color: var(--background-secondary-color);
+  box-shadow: var(--box-shadow);
+  border: 0;
+  font-size: 22px;
+  line-height: 22px;
+  padding: 10px;
+  margin: 10px 0;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  height: 39.5px;
+  transform: translate(100%, -73%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:focus,
+.delete-btn:focus {
+  outline: 0;
+}
+
+.list li:hover .delete-btn {
+  opacity: 1;
+}
+
+.notification-container {
+  background-color: var(--minus-color);
+  color: var(--background-secondary-color);
+  border-radius: 5px 5px 0 0;
+  padding: 15px 20px;
+  position: fixed;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.notification-container.show {
+  opacity: 1;
+}
+
+.notification-container p {
+  margin: 0;
+}
+
+.footer {
+  background-color: #2D9596;
+  width: 100%;
+  height: 100px;
+  position: relative;
+  top: 35px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.resetTransaction {
+  width: 300px;
+  height: 80px;
+  margin-right: 820px;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: ease-in-out 0.1s;
+  border: none;
+  background-repeat: no-repeat;
+  background: url(ResetTransactionBtn.png);
+  background-size: cover;
+}
+
+.resetTransaction:Hover {
+  width: 300px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background: url(ResetTransactionBtnHover.png);
+  background-size: cover;
+}
+
+.saveTransaction {
+  width: 300px;
+  height: 80px;
+  margin-right: 375px;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: ease-in-out 0.1s;
+  border: none;
+  background-repeat: no-repeat;
+  background: url(SaveTransactionBtn.png);
+  background-size: cover;
+}
+
+.saveTransaction:Hover {
+  width: 300px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background: url(SaveTransactionBtnHover.png);
+  background-size: cover;
+}
+
+.table {
+  width:100%;
+  margin-bottom:1rem;
+  border-collapse:collapse!important
+}
+
+.table-bordered {
+  border-bottom-width: 2px;
+  border: 0;
+}
+
+@keyframes expand {
+  0% {
+    transform: translateX(1400px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes fade-in {
+    from {
+        background-color: rgba(#000, 0.25);
+        opacity: 0;
+    }
+
+    to {
+        background-color: rgba(#000, 0);
+        opacity: 1;
+    }
+}
+</style>
+</head>
+<body>
+  <div class="menubar">
+    <p class = "title">Expense Tracker</p>
+    <div class="titleContainer"></div>
+    <button class="menuBtn" onclick="leaveTransaction()"></button>
+  </div>
+  <div class = "menuIncExp">
+      <div></div>
+      <div class ="balanceDiv">
+      <h4>Your Balance</h4>
+      <h4 id="balance" class="balance"></h4>
+      </div>
+      <div class = "incomeClass">
+      <h4>Income</h4>
+      <p id="money-plus" class="money plus"></p>
+    </div>
+    <div class ="expensesDiv">
+      <h4>Expenses</h4>
+      <p id="money-minus" class="money minus"></p>
+    </div>
+    <div></div>
+  </div>
+  <div class ="barrier"></div>
+<div class="container">
+<form id="form" method="POST">
+  <h3>History</h3>
+  <div class="containerTable">
+    <table class="table table-bordered text-center">  
+      <tr>
+        <td>Description</td>
+        <td>Money</td>
+        <td>Delete</td>
+      </tr> 
+      <tr>
+        <td>
+        </td>
+      </tr>
+      </tr>
+    </table>
+  </div>
+  <h3>Add new transaction</h3>
+  <div class="form-control">
+      <label for="text">Description</label>
+      <input type="text" id="text" name="text" placeholder="Enter description..." required/>
+    </div>
+    <div class="form-control">
+      <label for="amount">Amount <br />
+        <small>(Negative = Expense, Positive = Income)</small></label>
+      <input type="number" id="amount" name="amount" placeholder="Enter amount..." required/>
+    </div>
+    <div class="btnDiv">
+    <button class="btn" onclick="addTransaction()">Add transaction</button>
+    </div>
+</div>
+</form>
+<div class = "footer">
+  <button class = "resetTransaction" onclick="resetTransaction()"></button>
+  <button class = "saveTransaction" onclick="saveTransaction()"></button>
+</div>
+</body>
+</html>
